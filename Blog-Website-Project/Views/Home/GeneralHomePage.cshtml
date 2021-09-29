@@ -1,0 +1,67 @@
+﻿@model TopicsAndPopularArticles
+@{
+    ViewData["Title"] = "GeneralHomePage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .article:hover, .author:hover {
+        color: blue !important;
+        cursor: pointer;
+    }
+</style>
+<div class="container-fluid px-0">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark text-center d-flex justify-content-center">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 fst-italic">MY BLOG SITE</h1>
+            <p class="lead my-3">The best ideas can change who we are. This blog is where those ideas take shape, take off, and spark powerful conversations.</p>
+            <p class="lead mb-0"><a asp-controller="Article" asp-action="Index" class="text-white fw-bold">Let's start writing...</a></p>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active text-dark" id="popular-tab" data-bs-toggle="tab" data-bs-target="#popular" type="button" role="tab" aria-controls="home" aria-selected="true">Popular Articles</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark" id="articles-tab" data-bs-toggle="tab" data-bs-target="#articles" type="button" role="tab" aria-controls="profile" aria-selected="false">All Articles</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+            @*partial*@
+        </div>
+
+
+        <div class="tab-pane fade" id="articles" role="tabpanel" aria-labelledby="articles-tab">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            @foreach (TopicDTO item in Model.TopicDTOs)
+                            {
+                                <li class="nav-item">
+                                    <a style="cursor: pointer;" class="nav-link" onclick="GetArticleByTopic(@item.TopicID)">@item.TopicName</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a style="cursor: pointer;" class="nav-link" onclick="GetArticleByTopic()">No Filter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="allArticles" class="container-fluid">
+                @*partial*@
+                <hr class="my-4" />
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/CustomScripts/HomePage.js"></script>
+<script src="~/CustomScripts/GeneralHomePage.js"></script>

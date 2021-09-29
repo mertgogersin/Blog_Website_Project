@@ -1,0 +1,96 @@
+﻿@model AllAndFollowedTopicDTOs
+@{
+    ViewData["Title"] = "UserHomePage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .article:hover, .author:hover {
+        color: blue !important;
+        cursor: pointer;
+    }
+</style>
+<div class="container-fluid">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark text-center d-flex justify-content-center">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 fst-italic">MY BLOG SITE</h1>
+            <p class="lead my-3">The best ideas can change who we are. Medium is where those ideas take shape, take off, and spark powerful conversations.</p>
+            <p class="lead mb-0"><a asp-controller="Article" asp-action="Index" class="text-white fw-bold">Let's start writing...</a></p>
+            <p class="lead my-3">Or..</p>
+            <p class="lead my-3">If you want to follow our topics </p><p class="lead mb-0"><a asp-controller="Topic" asp-action="Index" class="text-white fw-bold">Click here...</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    @*Your topics*@
+    @if (Model.FollowedTopicDTOs.Count > 0)
+    {
+        <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
+            <a class="navbar-brand">Followed Topics : </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    @foreach (TopicDTO item in Model.FollowedTopicDTOs)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link">@item.TopicName</a>
+                        </li>
+                    }
+                  
+                </ul>
+                
+            </div>
+        </nav>
+    }
+    @*Tabs*@
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active text-dark" id="followed-tab" data-bs-toggle="tab" data-bs-target="#followed" type="button" role="tab" aria-controls="followed" aria-selected="true">Followed Articles</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark" id="popular-tab" data-bs-toggle="tab" data-bs-target="#popular" type="button" role="tab" aria-controls="popular" aria-selected="false">Popular Articles</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="false">All Articles</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show active" id="followed" role="tabpanel" aria-labelledby="followed-tab">
+            @*partial*@
+        </div>
+
+        <div class="tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+            @*partial*@
+        </div>
+        <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            @foreach (TopicDTO item in Model.TopicDTOs)
+                            {
+                                <li class="nav-item">
+                                    <a style="cursor: pointer;" class="nav-link" onclick="GetArticleByTopic(@item.TopicID)">@item.TopicName</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a style="cursor: pointer;" class="nav-link" onclick="GetArticleByTopic()">No Filter</a>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="allArticles" class="container-fluid">
+                @*partial*@
+                <hr class="my-4" />
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/CustomScripts/HomePage.js"></script>
+<script src="~/CustomScripts/UserHomePage.js"></script>

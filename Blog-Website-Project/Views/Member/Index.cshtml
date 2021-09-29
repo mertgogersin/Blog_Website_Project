@@ -1,0 +1,73 @@
+﻿@inject IHttpContextAccessor httpContextAccessor
+@model UserWithArticles
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container">
+    <div class="container">
+        <div class="main-body">
+          
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            @Html.Partial("_GetUserPhoto")
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Full Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">@Model.UserDTO.FullName</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">About Writer</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">@Model.UserDTO.Description</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Url</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">@Model.UserDTO.Url</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                @if (ViewBag.IsLoggedInUser)
+                                {
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-info" asp-action="UpdateUser" asp-controller="Member" asp-route-id="@Model.UserDTO.UserID">Edit</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div id="articles">
+                        @foreach (ArticleDTO item in Model.ArticleDTOs)
+                        {
+                            <div class="post-preview">
+                                <a style="text-decoration: none;" class="text-black article" href=@("/Article/ArticleDetailsPage/"+item.ArticleID)>
+                                    <h2 class="post-title">@item.Title</h2>
+                                    <h3 class="post-subtitle text-truncate">@item.Subtitle</h3>
+                                </a>
+                                <p class="post-meta text-black-50">
+                                    Posted on @item.CreatedDate.ToString("dd MMM yyy")
+
+                            </div>
+                            <hr class="my-4" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

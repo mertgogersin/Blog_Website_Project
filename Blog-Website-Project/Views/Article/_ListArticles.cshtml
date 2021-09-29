@@ -1,0 +1,19 @@
+﻿@model List<ArticleDTO>
+@foreach (ArticleDTO item in Model)
+{
+    <div class="post-preview">
+        <a style="text-decoration: none;" class="text-black article" href=@("/Article/ArticleDetailsPage/"+item.ArticleID)>
+            <h2 class="post-title">@item.Title</h2>
+            <h3 class="post-subtitle text-truncate">@item.Subtitle</h3>
+        </a>
+        <p class="post-meta text-black-50">
+            <img class="rounded-circle" style="width: 50px; height:50px" src="@item.PhotoPath" alt="Image">
+            Posted by
+            <a onclick="GetUser('@item.UserID','@item.Url')" style="text-decoration:none;" class="text-black author">@item.FullName</a>
+            on @item.CreatedDate.ToString("dd MMM yyy")
+        </p>
+
+    </div>
+    <hr class="my-4" />
+}
+

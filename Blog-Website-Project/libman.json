@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/jquery/"
+    },
+    {
+      "library": "bootstrap@5.1.0",
+      "destination": "wwwroot/bootstrap/"
+    },
+    {
+      "library": "jquery-validate@1.19.3",
+      "destination": "wwwroot/jquery-validate/",
+      "files": [
+        "jquery.validate.min.js"
+      ]
+    },
+    {
+      "library": "fontawesome-iconpicker@3.2.0",
+      "destination": "wwwroot/fontawesome-iconpicker/",
+      "files": [
+        "js/fontawesome-iconpicker.min.js",
+        "css/fontawesome-iconpicker.min.css"
+      ]
+    }
+  ]
+}

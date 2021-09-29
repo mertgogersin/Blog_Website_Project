@@ -1,0 +1,89 @@
+﻿@model ArticleWithTopics
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    textarea, input {
+        border: none;
+        overflow: auto;
+        outline: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+</style>
+<div class="container-fluid" style="font-family:'Times New Roman'; height:100vh;">
+    <div class="row">
+
+        <div class="col-md-3">
+            <ul class="list-group" id="topics">
+                @foreach (TopicDTO item in Model.TopicDTOs)
+                {
+                    <li class="list-group-item border-0 border-bottom">
+                        @if (item.IsSelected)
+                        {
+                            <input id="topic-@item.TopicID" name="@item.TopicID" onclick="GetTopic(@item.TopicID)" class="form-check-input me-1 chkbtn" type="checkbox" value="true" checked>
+                        }
+                        else
+                        {
+                            <input id="topic-@item.TopicID" onclick="GetTopic(@item.TopicID)" name="@item.TopicID" class="form-check-input me-1 chkbtn" type="checkbox" value="false">
+                        }
+                        <span id="topicName-@item.TopicID">@item.TopicName</span>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-6">
+            @if (ViewBag.Errors != null)
+            {
+                @foreach (string item in ViewBag.Errors)
+                {
+                    <div class="row">
+                        <span class="text-danger">*@item</span>
+                    </div>
+                }
+            }
+            <div class="row d-flex justify-content-end mt-2">
+                <div class="col-1 text-end">
+                    @if (ViewBag.isUpdate)
+                    {
+                        <button id="btnUpdate" name="@Model.ArticleDTO.ArticleID" class="btn btn-success rounded-pill">Update</button>
+                    }
+                    else if (!ViewBag.isUpdate)
+                    {
+                        <button id="btnPublish" class="btn btn-success rounded-pill">Publish</button>
+                    }
+                </div>
+            </div>
+            <div class="row my-3">
+                <input id="title" asp-for="ArticleDTO.Title" class="fs-3 border-0 border-bottom" placeholder="Title" />
+            </div>
+            <div class="row my-3">
+                <input id="subtitle"asp-for="ArticleDTO.Subtitle" class="fs-3 border-0 border-bottom" placeholder="Subtitle" />
+            </div>
+            <div class="row h-75">
+                <textarea id="content"asp-for="ArticleDTO.Content" class="border-0" placeholder="Content"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Success != null)
+{
+    <div class="modal" id="alert" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Information</h5>
+                    <button class="btn-close" data-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <span class="text-success text-center">@ViewBag.Success</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/CustomScripts/ArticleWithTopics.js"></script>

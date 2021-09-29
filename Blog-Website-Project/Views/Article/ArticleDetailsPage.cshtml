@@ -1,0 +1,37 @@
+﻿@model ArticleDetailsAndUserDTO
+@{
+    ViewData["Title"] = "ArticleDetailsPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="main col-md-8">
+        <div class="s_header_wraper">
+            <div class="s-post-header container">
+                <h1 itemprop="headline">@Model.ArticleDTO.Title</h1>
+                <div class="meta">
+                    
+                    <div class="post-date" itemprop="datePublished">Published Date @Model.ArticleDTO.CreatedDate.ToString("dd MMM yyy")</div>
+                    <div class="post-author" itemprop="author">
+                        by <a onclick="GetUser('@Model.UserDTO.UserID','@Model.UserDTO.Url')">@Model.UserDTO.FullName</a>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end single header -->
+        <br />
+        <div class="container" itemprop="articleBody">
+            @Model.ArticleDTO.Content
+        </div>
+    </div>
+</div>
+<script>
+    function GetUser(id, url) {
+        $.ajax({
+            url: "/Member/GetUser/" + id,
+            type: "GET",
+            success: function () {
+                window.location.href = "/Member/" + url;
+            }
+        })
+    }
+</script>

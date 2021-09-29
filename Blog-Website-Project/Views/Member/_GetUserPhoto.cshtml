@@ -1,0 +1,8 @@
+﻿@model UserWithArticles
+<div class="d-flex flex-column align-items-center text-center">
+    <img src="@Model.UserDTO.PhotoPath" alt="Admin" class="rounded-circle" width="150">
+    <div class="mt-3">
+        <h4>@Model.UserDTO.FullName</h4>
+        <p class="text-secondary mb-1">@Model.UserDTO.UserName</p>
+    </div>
+</div>
